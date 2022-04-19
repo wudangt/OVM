@@ -2,13 +2,15 @@
 from __future__ import absolute_import as _abs
 from numbers import Number as _Number
 from . import op as _op
-
+from . import var_name as _name
 
 class Expr(object):
-    """Base class of expression."""
+    """Base class of expression.
+    Expression object should be in general immutable.
+    """
 
     def children(self):
-        """All expr must define this.
+        """get children of this expression.
         Returns
         -------
         children : generator of children
@@ -59,6 +61,19 @@ def _symbol(value):
         raise TypeError("type %s not supported" % str(type(other)))
 
 
+class Var(Expr):
+    """Variable, is a symbolic placeholder.
+    Each variable is uniquely identified by its address
+    Note that name alone is not able to uniquely identify the var.
+    Parameters
+    ----------
+    name : str
+        optional name to the var.
+    """
+    def __init__(self, name=None):
+        self.name = name if name else _name.NameManager.current.get(name)
+
+
 class ConstExpr(Expr):
     """Constant expression."""
     def __init__(self, value):
@@ -76,7 +91,6 @@ class BinaryOpExpr(Expr):
     def children(self):
         return (self.lhs, self.rhs)
 
-
 _op.binary_op_cls = BinaryOpExpr
 
 class UnaryOpExpr(Expr):
@@ -87,3 +101,8 @@ class UnaryOpExpr(Expr):
 
     def children(self):
         return (self.src)
+
+
+def const(value):
+    """Return a constant value"""
+    return ConstExpr(value)

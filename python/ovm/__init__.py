@@ -1,5 +1,6 @@
-"""Init proptype of the OVM"""
-
+"""Init proptype of the TVM"""
 from __future__ import absolute_import as _abs
 
 from .op import *
+from .expr import Var, const
+from .expr_util import *
