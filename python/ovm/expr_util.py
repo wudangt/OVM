@@ -5,13 +5,17 @@ from . import op as _op
 
 def expr_with_new_children(e, children):
     """Returns same expr as e but with new children
+
     A shallow copy of e will happen if children differs from current children
+
     Parameters
     ----------
     e : Expr
        The input expression
+
     children : list of Expr
        The new children
+
     Returns
     -------
     new_e : Expr
@@ -31,12 +35,15 @@ def expr_with_new_children(e, children):
 
 def transform(e, f):
     """Apply f recursively to e and collect the resulr
+
     Parameters
     ----------
     e : Expr
        The input expression.
+
     f : function with signiture (e, ret_children)
        ret_children is the result of transform from children
+
     Returns
     -------
     result : return value of f
@@ -49,10 +56,12 @@ def transform(e, f):
 
 def visit(e, f):
     """Apply f to each element of e
+
     Parameters
     ----------
     e : Expr
        The input expression.
+
     f : function with signiture (e)
     """
     assert isinstance(e, _expr.Expr)
@@ -63,10 +72,12 @@ def visit(e, f):
 
 def format_str(expr):
     """change expression to string.
+
     Parameters
     ----------
     expr : Expr
        Input expression
+
     Returns
     -------
     s : str
@@ -92,10 +103,12 @@ def format_str(expr):
 
 def simplify(expr):
     """simplify expression
+
     Parameters
     ----------
     expr : Expr
         Input expression
+
     Returns
     -------
     e : Expr
@@ -117,12 +130,15 @@ def simplify(expr):
 
 def bind(expr, update_dict):
     """Replace the variable in e by specification from kwarg
+
     Parameters
     ----------
     expr : Expr
        Input expression
+
     update_dict : dict of Var->Expr
        The variables to be replaced.
+
     Examples
     --------
     eout = bind(e, update_dict={v1: (x+1)} )

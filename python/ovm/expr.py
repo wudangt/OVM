@@ -10,11 +10,13 @@ __divop__ = None
 
 class Expr(object):
     """Base class of expression.
+
     Expression object should be in general immutable.
     """
 
     def children(self):
         """get children of this expression.
+
         Returns
         -------
         children : generator of children
@@ -67,8 +69,10 @@ def _symbol(value):
 
 class Var(Expr):
     """Variable, is a symbolic placeholder.
+
     Each variable is uniquely identified by its address
     Note that name alone is not able to uniquely identify the var.
+
     Parameters
     ----------
     name : str
